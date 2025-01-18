@@ -15,6 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
     //Detect Player (Seek and Destroy)
     public Transform Player;
 
+    //HP Enemy
+    private int _lives =  3;
+
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -46,20 +49,44 @@ public class EnemyBehaviour : MonoBehaviour
         _agent.destination = Locations [_locationIndex].position;
         _locationIndex = (_locationIndex + 1) % Locations.Count;
     }
- void  OnTriggerEnter(Collider other)
- {
-    if(other.name == "Player")
+
+    void  OnTriggerEnter(Collider other)
     {
-        _agent.destination = Player.position;
-        Debug.Log("Enemy Detected!");
-        //Debug.Log("Player detected - attack!");
+       if(other.name == "Player")
+        {
+            _agent.destination = Player.position;
+            Debug.Log("Enemy Detected!");
+            //Debug.Log("Player detected - attack!");
+        }
     }
- }
- void OnTriggerExit(Collider other)
- {
-    if(other.name == "Player")
+    void OnTriggerExit(Collider other)
     {
-        Debug.Log("Player out of range, resume patrol");
+        if(other.name == "Player")
+        {
+            Debug.Log("Player out of range, resume patrol");
+        }
     }
- }
+
+    public int EnemyLives
+    {
+        get { return _lives; }
+        private set 
+        {
+            _lives = value;
+            if (_lives <= 0)
+            {
+                Destroy (this.gameObject);
+                Debug.Log ("Enemy Down.");
+            }
+        }
+    }
+
+    void OnCollisionEnter (Collision collision)
+    {
+        if (collision.gameObject.name == "Bullet(Clone)")
+        {
+            EnemyLives -= 1;
+            Debug.Log ("Critical Hit!");
+        }
+    }
 }
