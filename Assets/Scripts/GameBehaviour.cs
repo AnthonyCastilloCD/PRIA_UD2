@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameBehaviour : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameBehaviour : MonoBehaviour
     public TMP_Text HealthText;
     public TMP_Text ItemText;
     public TMP_Text ProgressText;
+
+    public Button LoseButton;
 
     void Start()
     {
@@ -57,6 +60,17 @@ public class GameBehaviour : MonoBehaviour
             _playerHP = value;
             HealthText.text = "Player Health: " + HP;
             Debug.LogFormat("Lives: {0}", _playerHP);
+
+            if (_playerHP <= 0)
+            {
+                ProgressText.text = "You want another life with that?";
+                LoseButton.gameObject.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                ProgressText.text = "Ouch... That's got hurt.";
+            }
         }
     }
 }
