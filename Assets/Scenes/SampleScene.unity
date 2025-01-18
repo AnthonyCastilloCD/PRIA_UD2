@@ -2977,6 +2977,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8133043935922977115, guid: 41b840ca781a4f54a96052c45c342e59, type: 3}
+      propertyPath: PatrolRoute
+      value: 
+      objectReference: {fileID: 755616494}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b840ca781a4f54a96052c45c342e59, type: 3}
