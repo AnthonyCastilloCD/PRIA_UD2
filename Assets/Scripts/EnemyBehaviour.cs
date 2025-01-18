@@ -12,11 +12,16 @@ public class EnemyBehaviour : MonoBehaviour
     private int _locationIndex = 0;
     private NavMeshAgent _agent;
 
+    //Detect Player (Seek and Destroy)
+    public Transform Player;
+
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         InitializePatrolRoute();
         MoveToNextPatrolLocation();
+
+        Player = GameObject.Find("Player").transform;
     }
 
     void Update()
@@ -45,7 +50,9 @@ public class EnemyBehaviour : MonoBehaviour
  {
     if(other.name == "Player")
     {
-        Debug.Log("Player detected - attack!");
+        _agent.destination = Player.position;
+        Debug.Log("Enemy Detected!");
+        //Debug.Log("Player detected - attack!");
     }
  }
  void OnTriggerExit(Collider other)
