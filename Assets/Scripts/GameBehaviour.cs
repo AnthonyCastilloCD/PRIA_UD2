@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.VisualScripting;
 
 public class GameBehaviour : MonoBehaviour
 {
@@ -24,6 +25,12 @@ public class GameBehaviour : MonoBehaviour
     }
 
     public Button WinButton;
+
+    public void UpdateScene(string updatedText)
+    {
+        ProgressText.text = updatedText;
+        Time.timeScale = 0f;
+    }
     private int _itemsCollected = 0;
     public int Items
     {
@@ -34,9 +41,11 @@ public class GameBehaviour : MonoBehaviour
             ItemText.text = "Items Collected: " + Items;
             if(_itemsCollected >= MaxItems)
             {
-                ProgressText.text = "You've found all the items!";
+                //ProgressText.text = "You've found all the items!";
+                //Time.timeScale = 0f;
                 WinButton.gameObject.SetActive(true);
-                Time.timeScale = 0f;
+                UpdateScene("You've found all the items!");
+
             }
             else 
             {
@@ -63,9 +72,10 @@ public class GameBehaviour : MonoBehaviour
 
             if (_playerHP <= 0)
             {
-                ProgressText.text = "You want another life with that?";
+                //ProgressText.text = "You want another life with that?";
+                //Time.timeScale = 0;
                 LoseButton.gameObject.SetActive(true);
-                Time.timeScale = 0;
+                UpdateScene ("You want another life with that?");
             }
             else
             {
